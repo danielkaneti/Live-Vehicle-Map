@@ -137,7 +137,7 @@ const Map = () => {
   };
 
   return (
-    <div ref={LMap} id="map" style={{ height: "600px", width: "600px" }}></div>
+    <div ref={LMap} id="map" style={{ height: "100vh", width: "100vw" }}></div>
   );
 };
 
