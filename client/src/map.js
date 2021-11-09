@@ -19,19 +19,39 @@ const Map = () => {
   }, []);
 
   useEffect(() => {
-    const map = L.map("map", {
-      drawControl: true,
-      center: [51.444961547, -0.156384989],
-      zoom: 13,
-    });
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution:
-        'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>',
-      maxZoom: 18,
-    }).addTo(map);
-
-    setMapObject(map);
+    if (!mapObject) {
+      const map = L.map("map", {
+        drawControl: false,
+       center: [51.444961547, -0.156384989],
+       zoom: 13,
+     });
+ 
+      var options = {
+         position: 'topleft',
+         draw: {
+             polygon: {
+                 allowIntersection: false, // Restricts shapes to simple polygons
+             },
+             circle: false, // Turns off this drawing tool
+             rectangle: false,
+             circlemarker:false,
+             marker: false,
+             polyline: false
+         },
+     };
+     
+     var drawControl = new L.Control.Draw(options);
+     map.addControl(drawControl);
+ 
+     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+       attribution:
+         'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>',
+       maxZoom: 18,
+     }).addTo(map);
+ 
+     setMapObject(map);
+    }
+ 
   }, []);
 
   useEffect(() => {
